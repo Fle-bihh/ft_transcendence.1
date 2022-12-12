@@ -3,29 +3,29 @@ import io from "socket.io-client";
 import { useState } from "react";
 import Chat from "./views/chat/Chat";
 
-const socket = io("http://localhost:3001");
-
 function App() {
-  const socket = io('http://localhost:3000');
-      socket.on('connect', function() {
-        console.log('Connected');
-
-        socket.emit('events', { test: 'test' });
-        // socket.emit('identity', 0, response =>ß { console.log('Identity:', response) },);
-      });
-      socket.on('events', function(data) {
-        console.log('event', data);
-      });
-      socket.on('exception', function(data) {
-        console.log('event', data);
-      });
-      socket.on('disconnect', function() {
-        console.log('Disconnected');
-      });
-
+  const socket = io("http://localhost:5001");
+  socket.on("newClient", () => {
+    console.log("test1");
+  });
+  
+  socket.on("disconnect", () => {
+    console.log(socket.id);
+  });
       return (
         <div className='app'>
             <Chat />
+            <button onClick={() => {
+              socket.emit('TEST1', {
+                user: {
+                  login: 'fle-biha',
+                  nickname: 'oui'
+                },
+                test: 50
+              });
+            }}>
+              Test1
+            </button>
         </div>
       )
 }

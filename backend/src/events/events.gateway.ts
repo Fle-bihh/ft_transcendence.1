@@ -1,30 +1,55 @@
 import {
+    ConnectedSocket,
     MessageBody,
-    SubscribeMessage,
     WebSocketGateway,
+    SubscribeMessage,
     WebSocketServer,
-    WsResponse,
-  } from '@nestjs/websockets';
-  import { from, Observable } from 'rxjs';
-  import { map } from 'rxjs/operators';
-  import { Server } from 'socket.io';
+} from '@nestjs/websockets';
+import { createServer } from "http";
+import { Socket } from 'socket.io';
+import { Server } from 'socket.io';
+import { Logger } from '@nestjs/common';
 
-  @WebSocketGateway({
-      cors: {
-          origin: '*',
-      },
-  })
-  export class EventsGateway {
-      @WebSocketServer()
-      server: Server;
+@WebSocketGateway({
+    cors: {
+        origin: '*', // on accepte les requetes venant de partout
+    },
+})
+export class EventsGateway {
+    private logger: Logger = new Logger('AppGateway');
 
-      @SubscribeMessage('events')
-      findAll(@MessageBody() data:any): Observable<WsResponse<number>> {
-          return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item})));
-      }
+    @WebSocketServer()
+    httpServer = createServer();
+    io = new Server(this.httpServer);
 
-      @SubscribeMessage('identity')
-      async identity(@MessageBody() data: number): Promise<number> {
-          return data;
-      }
-  }
+    @SubscribeMessage('CONNECT')
+    connect() {
+        this.logger.log("connected serverside")
+    }
+
+    @SubscribeMessage('TEST1')
+    test1(
+        client: Socket,
+        data: {
+            user: {
+                login: string,
+                nickname: string
+            },
+            test: number
+        }) {
+            
+        console.log(data)
+        console.log(client.id)
+        this.logger.log("connected testtsets");
+        this.io.to(client.id).emit('newClient');
+
+    }
+
+    handleConnection(client: Socket) {
+        this.logger.log(`new client connected ${client.id}`);
+    }
+
+    handleDisconnect(client: Socket) {
+        this.logger.log(`client ${client.id} disconnected`);
+    }
+}
