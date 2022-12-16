@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './chat/app.controller';
-import { AppService } from './chat/app.service';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { EventsModule } from './events/events.module'
 
 @Module({

@@ -1,33 +1,27 @@
 import "./App.css";
-import io from "socket.io-client";
 import { useState } from "react";
-import Chat from "./views/chat/Chat";
+import Chat from "./Pages/chat/Chat";
+import io from 'socket.io-client';
+import Register from "./Pages/chat/Register";
+import Login from "./Pages/chat/Login";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from './State/store'
+// import { createReducer, handleAction } from 'reducer-utils';
+// import { connect } from 'react-redux';
+
 
 function App() {
-  const socket = io("http://localhost:5001");
-  socket.on("newClient", () => {
-    console.log("test1");
-  });
   
-  socket.on("disconnect", () => {
-    console.log(socket.id);
-  });
-      return (
-        <div className='app'>
-            <Chat />
-            <button onClick={() => {
-              socket.emit('TEST1', {
-                user: {
-                  login: 'fle-biha',
-                  nickname: 'oui'
-                },
-                test: 50
-              });
-            }}>
-              Test1
-            </button>
-        </div>
+
+return (
+  <div className='app'>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+        <h1>Bonjour</h1>
+      {/* </PersistGate> */}
+  </div>
       )
 }
 
+// // Use the connect function to connect your component to the Redux store
+// export default connect(mapStateToProps)(YourComponent);
 export default App;
