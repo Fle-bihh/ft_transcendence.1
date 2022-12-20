@@ -15,9 +15,9 @@ function App() {
 
 return (
   <div className='app'>
-      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <PersistGate loading={null} persistor={persistor}>
         <h1>Bonjour</h1>
-      {/* </PersistGate> */}
+      </PersistGate>
   </div>
       )
 }

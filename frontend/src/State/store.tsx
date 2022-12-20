@@ -5,7 +5,8 @@ import thunk from 'redux-thunk'
 
 export const store = configureStore({
     reducer: reducers,
-    middleware: [thunk]
+    middleware: [thunk],
+    devTools: process.env.NODE_ENV !== 'production'
 })
 
 export const persistor = persistStore(store)
