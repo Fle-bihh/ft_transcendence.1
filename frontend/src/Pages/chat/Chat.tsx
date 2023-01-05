@@ -100,69 +100,9 @@ const Chat = (props: { messages: Array<{ id: number, sender: string, receiver: s
         </div>
         
       </div>
-
-
-      {/* <Box
-          sx={{
-            display: 'flex',
-            '& > *': {
-              m: 1,
-            },
-          }}
-        >
-          <ButtonGroup
-            orientation="vertical"
-            aria-label="vertical outlined button group"
-          >
-            {buttons}
-          </ButtonGroup>
-        </Box> */}
     </div>
 
   )
 }
-
-// {/* <h2>
-//           <Stack direction="row" spacing={2}>
-//             <Avatar sx={{ bgcolor: deepPurple[500] }}>F</Avatar>
-//             Felix
-//           </Stack>
-//         </h2>
-//         <div className="conversation-list">
-//           {/* <!-- conversation list goes here --> */}
-//           <List>
-//             <ListItem>Alex</ListItem>
-//             <ListItem>Mey</ListItem>
-//             <ListItem>Leo</ListItem>
-//           </List>
-//         </div>
-//         <div className="conversation-view">
-//           <div className="conversation-header">
-//             {/* <!-- conversation name goes here --> */}
-//             <h2>
-//               <Stack direction="row" spacing={2}>
-//                 <Avatar sx={{ bgcolor: deepPurple[500] }}>A</Avatar>
-//                 Alex
-//               </Stack>
-//             </h2>
-//           </div>
-//           <div className="messages">
-//             {props.messages.map((messages) => { return (
-//               <div>
-//                 {messages.text}
-//               </div>
-//             ) })}
-//             {/* <!-- messages go here --> */}
-//             {/* <Messages messages={messages} onClick={() => setMobile(false)} loading={loading} /> */}
-//           </div>
-//           <div className="message-input">
-//             {/* <!-- input field goes here --> */}
-//             <TextField id="outlined-basic" variant="outlined" value={inputValue} onChange={(event) => {setInputValue(event.currentTarget.value)}} />
-//             <Button variant="contained" onClick={() => {
-//               props.setMessages([...props.messages, {id: props.messages.length, sender: 'Felix', receiver: 'Alex' , text: inputValue}])
-//               console.log({id: props.messages.length, sender: 'Felix', receiver: 'Alex' , text: inputValue})
-//             }}>Send</Button>
-//           </div>
-//         </div> */}
 
 export default Chat

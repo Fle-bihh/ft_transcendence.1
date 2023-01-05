@@ -10,8 +10,7 @@ import {BrowserRouter} from 'react-router-dom';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-// const container = document.getElementById('app');
-// const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+
 root.render(
   <Provider store={store}>
     <BrowserRouter>
