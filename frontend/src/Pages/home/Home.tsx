@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import {Box, Typography} from "@mui/material"
 import HomesImage from "../../styles/asset/gif_pong.gif"
 import Versions from "../../components/versions/Versions";
@@ -28,6 +28,7 @@ import "./home.scss"
 
 
   const Home = (data: any) => {
+  
 
     // return (
     //     <div className="home-container">
