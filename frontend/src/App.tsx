@@ -1,11 +1,11 @@
 // import { useState } from "react";
 import Chat from "./pages/chat/Chat";
-import Versions from "./components/Versions";
-import Profil from "./pages/Profil";
-import Jeux from "./pages/Jeux";
-import Homes from "./pages/Homes";
-import Login from "./components/connexion/Login";
-import Singup from "./components/connexion/Singup";
+import Versions from "./components/versions/Versions";
+import Profile from "./pages/profile/Profile";
+import Pong from "./pages/pong/Pong";
+import Home from "./pages/home/Home";
+import Signin from "./pages/signin/Signin";
+import Signup from "./pages/signup/Signup";
 
 
 // import io from 'socket.io-client';
@@ -25,12 +25,12 @@ return (
   <div className='app'>
       <PersistGate loading={null} persistor={persistor}>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/singup" element={<Singup />} />
-          <Route path="/" element={<Homes />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={<Home />} />
           <Route path="/versions" element={<Versions />} />
-          <Route path="/jeux" element={<Jeux />} />
-          <Route path="/profil" element={<Profil />} />
+          <Route path="/pong" element={<Pong />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/chat" element={<Chat messages={messages} setMessages={setMessages}/>} />
 
         </Routes>

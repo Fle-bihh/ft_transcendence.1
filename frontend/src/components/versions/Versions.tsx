@@ -72,9 +72,9 @@
 //     </Box>
 //   );
 // }
-import Version1 from "../styles/components/asset/gif_pong.gif";
-import Version2 from "../styles/components/asset/Version2.gif";
-import Version3 from "../styles/components/asset/Version3.gif";
+import Version1 from "../../styles/asset/gif_pong.gif";
+import Version2 from "../../styles/asset/Version2.gif";
+import Version3 from "../../styles/asset/Version3.gif";
 import {Link, NavLink} from "react-router-dom";
 
 
@@ -84,7 +84,7 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { AirlineSeatReclineNormalSharp } from "@mui/icons-material";
-import Navbar from "./Nav"
+import Navbar from "../nav/Nav"
 
 const images = [
   {
