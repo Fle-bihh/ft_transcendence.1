@@ -1,4 +1,3 @@
-import "./App.css";
 // import { useState } from "react";
 import Chat from "./pages/chat/Chat";
 import Versions from "./components/Versions";
