@@ -40,7 +40,7 @@ export class EventsGateway {
             
         console.log(data)
         console.log(client.id)
-        this.logger.log("connected testtsets");
+        this.logger.log("connected");
         this.io.to(client.id).emit('newClient');
 
     }

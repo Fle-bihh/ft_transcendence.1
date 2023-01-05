@@ -27,7 +27,7 @@ let EventsGateway = class EventsGateway {
     test1(client, data) {
         console.log(data);
         console.log(client.id);
-        this.logger.log("connected testtsets");
+        this.logger.log("connected");
         this.io.to(client.id).emit('newClient');
     }
     handleConnection(client) {

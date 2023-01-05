@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { userReducer } from "./userReducers";
+import { userReducer } from "./userReducer";
 import storage from 'redux-persist/lib/storage'
 import persistReducer from "redux-persist/es/persistReducer";
 import { utilsReducer } from "./utilsReducer";
@@ -16,8 +16,8 @@ const tmp = combineReducers(    {
 const persistantReducer = persistReducer(persistConfig, tmp)
 
 const reducers = combineReducers(   {
-    utilsReducer: utilsReducer,
-    persistantReducer: persistReducer
+    utils: utilsReducer,
+    persistantReducer: persistantReducer
 })
 
 export default reducers;

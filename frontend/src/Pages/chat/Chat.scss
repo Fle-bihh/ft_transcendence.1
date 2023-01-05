@@ -1,0 +1,144 @@
+.navbar {
+
+    width: 100%;
+    height: 10vh;
+
+    background-color: rgb(0, 0, 0);
+
+}
+
+.chatPage {
+
+    width: 100%;
+
+    // valeur = hauteur 100vh - hauteur navbar
+    height: 90vh;
+    //
+
+        background-image: url('https://images.ctfassets.net/3mv54pzvptwz/6eyCiDiWfBlMbGe4JK4zeH/b5ece047802553d30c885d47ee3a797b/background_njr10.jpg');
+    // background-color: rgb(0, 0, 54);
+    
+    display: flex;
+    flex-direction: row;
+    
+
+    .side {
+
+        // margin-left: 30%;
+        backdrop-filter: blur(30px);
+        height: 100%;
+        // width: 323px;
+        min-width: 323px;
+
+        background-color: rgb(0, 0, 0, 0.70);
+
+        color: white;
+
+        .sideTitleContainer {
+            width: 100%;
+
+            min-height: 30px;
+            // height: 8%;
+
+            // background-color: red;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(0, 0, 0, 0.5);
+
+            .sideTitle {
+                margin-left: 4%;
+                font-size: large;
+            }
+
+        }
+
+        .startedConv {
+                width: 100%;
+                height: calc(100% - 50px);
+                overflow: scroll;
+                // background-color: rgb(0, 0, 0, 0.4);
+
+            .startedConvItem {
+                width: 100%;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                background-color: rgb(0, 0, 0, 0.3);
+                .sideAvatar {
+                    margin-inline: 2%;
+        
+                }  
+                .startedConvName {
+                    font-size: larger;
+                }
+                .moreInfoButton {
+                    margin-right: 2%;
+                    margin-left: auto;
+                }
+            }
+        }
+
+    }
+    .main {
+        height: 100%;
+        width: 78%;
+
+        background-color: rgb(0, 0, 0, 0.30);
+
+        color: white;
+
+        .mainTitleContainer {
+            width: 100%;
+
+            min-height: 70px;
+            // height: 8%;
+
+            // background-color: red;
+
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+            text-align: center;
+
+            background-color: rgb(0, 0, 0, 0.4);
+            backdrop-filter: blur(30px);
+
+            .mainTitle {
+                display: flex;
+                font-size: larger;
+                align-items: center;
+                // justify-content: space-between;
+                margin-right: auto;
+                margin-left: 40%;
+
+                .mainAvatar {
+                    margin-inline: 10%;
+                }
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: space-around;
+                margin-right: 2%;
+                margin-left: auto;
+            }
+
+            
+        }
+
+        .messagesContainer {
+            height: calc(100% - 70px);
+            // background-color: rgb(0, 0, 0);
+            
+            .messagesDisplay {
+
+            }
+
+            .messageInput {
+
+            }
+        }
+    }
+}
