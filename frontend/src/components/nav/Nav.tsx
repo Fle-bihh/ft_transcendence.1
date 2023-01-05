@@ -161,6 +161,7 @@ import ThreeDRotation from '@mui/icons-material/ThreeDRotation';
 import {NavLink} from "react-router-dom"
 import { ThemeProvider, createTheme } from '@mui/system';
 import Fade from '@mui/material/Fade';
+import "./nav.scss"
 
 
 import {Home as HomeIcon, PersonAdd, AccountCircle, Notifications, Message, Menu as MenuIcon} from "@mui/icons-material/";

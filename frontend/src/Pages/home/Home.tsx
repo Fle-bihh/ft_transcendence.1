@@ -27,12 +27,12 @@ import "./home.scss"
 
 
 
-  const Homes = (data: any) => {
+  const Home = (data: any) => {
 
     // return (
     //     <div className="home-container">
     //         <Nav />
-    //         <Box> Homes</Box>
+    //         <Box> Home</Box>
     //         <div>
     //             <label htmlFor="home"> nbr de publi</label>       
     //         </div>
@@ -108,4 +108,4 @@ import "./home.scss"
       </React.Fragment>
     );
  };
- export default Homes;
+ export default Home;

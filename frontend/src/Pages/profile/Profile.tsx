@@ -2,7 +2,7 @@
 import Navbar from '../../components/nav/Nav';
 import * as React from 'react';
 
-const Profil = () => {
+const Profile = () => {
     return (
         <React.Fragment >
             <Navbar />
@@ -14,4 +14,4 @@ const Profil = () => {
 
     )
 }
-export default Profil;
+export default Profile;

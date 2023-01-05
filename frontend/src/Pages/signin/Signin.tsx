@@ -9,7 +9,7 @@ import "./signin.scss"
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 // const Login =({handleChange})=>{
-    const Login =()=>{
+    const Signin =()=>{
     const paperStyle={padding:20, height:'73vh', width:300, margin:'0 auto' }
     const avatarStyle={backgroundColor: 'red', margin:'20px auto'}
     const textStyle={textAlign:'center'}
@@ -52,4 +52,4 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     )
 };
  
-export default Login; 
+export default Signin; 

@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
-const Singup = () => {
+const Signup = () => {
 
 
     const paperStyle={padding:20, height:'70vh', width:300, margin:'0 auto'}
@@ -62,4 +62,4 @@ const Singup = () => {
     );
 };
 
-export default Singup; 
+export default Signup; 
