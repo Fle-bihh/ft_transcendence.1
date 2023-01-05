@@ -133,11 +133,14 @@
             // background-color: rgb(0, 0, 0);
             
             .messagesDisplay {
-
+                height: 90%;
+                width: 100%;
             }
 
             .messageInput {
-
+                display: flex;
+                backdrop-filter: blur(30px);
+                height: 10%;
             }
         }
     }
