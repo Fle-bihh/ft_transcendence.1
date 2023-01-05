@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import LockSharpIcon from '@mui/icons-material/LockSharp';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
+import "./signin.scss"
 
 // import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -40,7 +41,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
                 </Typography>
                 <Typography> Do you have an account ?          
                     {/* <Link href='/singup' onClick={()=>handleChange("event",1)}> */}
-                    <NavLink to='/singup'>
+                    <NavLink to='/signup'>
                         
                         Sign up
                     </NavLink>

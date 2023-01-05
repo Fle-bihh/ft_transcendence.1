@@ -1,9 +1,10 @@
 
 import React from 'react';
 import {Box, Typography} from "@mui/material"
-import HomesImage from "../styles/components/asset/gif_pong.gif"
-import Versions from "../components/Versions";
-import Navbar from '../components/Nav';
+import HomesImage from "../../styles/asset/gif_pong.gif"
+import Versions from "../../components/versions/Versions";
+import Navbar from '../../components/nav/Nav';
+import "./home.scss"
 
 
 // import Navbar from '../components/Nav';

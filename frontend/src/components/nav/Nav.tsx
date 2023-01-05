@@ -188,8 +188,8 @@ const Navbar = (props: any) => {
     })
     const ItemsInNav = [{Name: <PersonAdd/>, Link:'/'},
     {Name: <Notifications/>, Link:'#'},
-    {Name: <Message/>, Link:'#'},
-    {Name: <AccountCircle/>, Link:'/Profil'},
+    {Name: <Message/>, Link:'/Chat'},
+    {Name: <AccountCircle/>, Link:'/Profile'},
     ];
 
     const HomeBox = styled(Box)({

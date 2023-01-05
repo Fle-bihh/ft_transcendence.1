@@ -7,13 +7,13 @@ import Stack from '@mui/material/Stack';
 import { deepPurple, red } from '@mui/material/colors';
 import { ListItem, List } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import Messages from '../../components/chat/Main/Messages/index';
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import BlockIcon from '@mui/icons-material/Block';
 import './Chat.scss'
+import Navbar from '../../components/nav/Nav';
 
 const Chat = (props: { messages: Array<{ id: number, sender: string, receiver: string, text: string, groupText: boolean }>, setMessages: Function }) => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,8 @@ const Chat = (props: { messages: Array<{ id: number, sender: string, receiver: s
     <div className='chat'>
 
 
-      <div className='navbar'></div>
+      <div className='navSpace'></div>
+      <Navbar />
 
 
       <div className="chatPage">

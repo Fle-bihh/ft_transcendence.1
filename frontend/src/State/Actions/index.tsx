@@ -1,4 +1,4 @@
-import { userActionType } from "../Action-Types";
+import { userActionType } from "../action-types";
 
 type SetUserAction = {
     type: userActionType.SETUSER

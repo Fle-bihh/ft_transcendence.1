@@ -1,5 +1,5 @@
-import { userActionType } from "../Action-Types";
-import { userAction } from "../Actions";
+import { userActionType } from "../action-types";
+import { userAction } from "../actions";
 
 export interface User {
     user: {

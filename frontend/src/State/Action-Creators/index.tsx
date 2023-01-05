@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
-import { userActionType } from "../Action-Types/index"
-import { userAction } from "../Actions/index"
+import { userActionType } from "../action-types/index"
+import { userAction } from "../actions/index"
 
 export const setUser = (item: {
     login: string
