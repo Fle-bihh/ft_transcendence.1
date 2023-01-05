@@ -1,9 +1,7 @@
 
 import React from 'react';
 import {Box, Typography} from "@mui/material"
-// import HomesImage from "../styles/components/asset/ananas.png"
-// import HomesImage from "../styles/components/asset/gif_pong.gif"
-// import Image from "../styles/components/asset/imageNeymar.jpg"
+import HomesImage from "../styles/components/asset/gif_pong.gif"
 import Versions from "../components/Versions";
 import Navbar from '../components/Nav';
 
@@ -66,7 +64,7 @@ import Navbar from '../components/Nav';
 
         <Box 
         sx={{
-          // backgroundImage:`url(${HomesImage})`,
+          backgroundImage:`url(${HomesImage})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition:'center',
           backgroundSize: 'cover',

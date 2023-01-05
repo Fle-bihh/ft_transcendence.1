@@ -25,17 +25,17 @@ function App() {
 return (
   <div className='app'>
       <PersistGate loading={null} persistor={persistor}>
-        <Chat messages={messages} setMessages={setMessages}/>
-      </PersistGate>
-      <Routes>
+        <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/singup" element={<Singup />} />
           <Route path="/" element={<Homes />} />
           <Route path="/versions" element={<Versions />} />
           <Route path="/jeux" element={<Jeux />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/chat" element={<Chat messages={messages} setMessages={setMessages}/>} />
 
         </Routes>
+      </PersistGate>
   </div>
   )
 }
