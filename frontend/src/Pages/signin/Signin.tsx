@@ -10,7 +10,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 // const Login =({handleChange})=>{
     const Signin =()=>{
-    const paperStyle={padding:20, height:'73vh', width:300, margin:'0 auto' }
+    const paperStyle={padding:20,height:500, width:300, margin:'0 auto'}
     const avatarStyle={backgroundColor: 'red', margin:'20px auto'}
     const textStyle={textAlign:'center'}
     const btnStyle={margin:'8px 0', }
@@ -24,7 +24,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
                     <Avatar style={avatarStyle}>
                         <LockSharpIcon />
                     </Avatar>
-                    <h2>
+                    <h2 >
                         Sign In
                     </h2>
                 </Grid>
