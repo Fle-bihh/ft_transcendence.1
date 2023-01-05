@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/nav/Nav';
 
+
 const Pong = () => {
     return (
         
@@ -11,4 +12,6 @@ const Pong = () => {
     );
 };
 
+
 export default Pong;
+
