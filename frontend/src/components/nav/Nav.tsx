@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {AppBar, Box, Menu, MenuItem, styled, Toolbar, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom"
 import "./nav.scss"
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 import {Home as HomeIcon, PersonAdd, AccountCircle, Notifications, Message, Menu as MenuIcon} from "@mui/icons-material/";
@@ -20,6 +21,7 @@ const Navbar = (props: any) => {
     {Name: <Notifications/>, Link:'#'},
     {Name: <Message/>, Link:'/Chat'},
     {Name: <AccountCircle/>, Link:'/Profile'},
+    {Name: <LogoutIcon/>, Link:'Signin'}
     ];
 
     const HomeBox = styled(Box)({
