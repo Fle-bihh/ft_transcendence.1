@@ -3,6 +3,7 @@ import Navbar from '../../components/nav/Nav';
 import * as React from 'react';
 
 const Profile = () => {
+
     return (
         <React.Fragment >
             <Navbar />
