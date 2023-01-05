@@ -1,7 +1,8 @@
 import React from 'react';
 import Navbar from '../../components/nav/Nav';
 
-const Jeu = () => {
+
+const Pong = () => {
     return (
         
         <div>
@@ -11,4 +12,6 @@ const Jeu = () => {
     );
 };
 
-export default Jeu;
+
+export default Pong;
+
