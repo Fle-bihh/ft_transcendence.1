@@ -8,7 +8,6 @@ const Profile = () => {
         <React.Fragment >
             <Navbar />
         <div >
-            {/* <Nav /> */}
             <h1>nous</h1>
         </div>
         </React.Fragment >

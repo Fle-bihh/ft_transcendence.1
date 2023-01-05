@@ -1,77 +1,3 @@
-// import React from 'react';
-// import {Stack, Typography,  Button, ButtonGroup} from "@mui/material"
-// import Version1 from "../styles/components/asset/gif_pong.gif"
-// import Version2 from "../styles/components/asset/Version2.gif"
-// import Version3 from "../styles/components/asset/Version3.gif"
-
-// // import * as React from 'react';
-// import { experimentalStyled as styled } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import Paper from '@mui/material/Paper';
-// import Grid from '@mui/material/Grid';
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(2),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-// const StyledBox = styled(Box)({
-//   height:280,
-//   width:'100%',
-//   cusor: "pointer",
-//   backgroundRepeat:'no-repeat',
-//   backgroundPosition:'center',
-//   backgroundSize:'cover',
-
-// });
-// const StyledTypographie = styled(Typography)({
-//   margin:'25% 50px 25% 50px',
-//   // marginTop:'100px',
-//   background: 'white',
-//   backgroundPosition:'center',
-
-//   color:'black',
-//   opacity: '0.8',
-  
-// })
-
-
-// export default function Play() {
-//   return (
-//     <Box sx={{ flexGrow: 1 }}>
-//       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 3, md: 18 }}>
-//         {/* {Array.from(Array(6)).map((_, index) => ( */}
-//           <Grid item xs={6} >
-//             {/* <Item>xs=2</Item> */}
-//             <StyledBox sx={{backgroundImage:`url(${Version1})`}}>   
-//             <StyledTypographie align='center' variant='h3'>
-//                 Version1
-//             </StyledTypographie>
-//             </StyledBox>
-//             <Button variant="contained" sx={{align:'bottom' }}>PLAY</Button >
-//         </Grid>
-       
-       
-       
-       
-       
-//         <Grid item xs={6}  >
-//             <Item>xs=3</Item>
-//             <Item>PLAY</Item>
-//         </Grid>
-//         <Grid item xs={6}  >
-
-//             <Item>xs=5</Item>
-//             <Item>PLAY</Item>
-//           </Grid>
-//         {/* ))} */}
-//       </Grid>
-//     </Box>
-//   );
-// }
 import Version1 from "../../styles/asset/gif_pong.gif";
 import Version2 from "../../styles/asset/Version2.gif";
 import Version3 from "../../styles/asset/Version3.gif";
@@ -83,7 +9,6 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
-import { AirlineSeatReclineNormalSharp } from "@mui/icons-material";
 import Navbar from "../nav/Nav"
 
 const images = [
@@ -202,12 +127,6 @@ export default function ButtonBases() {
             width: image.width,
           }}
         >
-
-{/* `url(${Version2})` */}
-          {/* <ImageSrc style={{ backgroundImage: `url(${ananas})` }} />
-          <ImageSrc style={{ backgroundImage: `url(${Version2})` }} /> */}
-         
-          {/* <ImageSrc style={{ backgroundImage: `url(${cerise})` }} /> */}
          
           <ImageSrc style={{ backgroundImage: `url(${image.url})` }}/>
 
@@ -215,8 +134,6 @@ export default function ButtonBases() {
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
           <NavLink to='/jeux' >
-                             {/* {item.Name} */}
-            {/* <a href={'http://localhost:3000/jeux'}> */}
             <Typography
               component="span"
               variant="subtitle1"
@@ -232,14 +149,12 @@ export default function ButtonBases() {
 
               <ImageMarked className="MuiImageMarked-root" />
             </Typography>
-       {/* </a>  */}
       </NavLink>
 
           </Image>
         </ImageButton>
       ))}
     </Box>
-    {/* </NavLink> */}
           </React.Fragment>
   );
 }

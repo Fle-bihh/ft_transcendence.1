@@ -6,82 +6,22 @@ import Versions from "../../components/versions/Versions";
 import Navbar from '../../components/nav/Nav';
 import "./home.scss"
 
-
-// import Navbar from '../components/Nav';
-
-// const styles = {
-//   paperContainer: {
-//      height: 750,
-//      width:'100%',
-//     backgroundImage: `url(${HomesImage})`,
-//     backgroundRepeat: 'no-repeat',
-//     backgrounPosition:'left',
-//     backgroundSize: '37%',
-//     //  backgroundAttachment:'fixed',
-//     backgroundColor: 'red',
-//     display:'flex',
-//     justifyContent:'left'
-//   }
-// };
-
-
-
-
-
   const Home = (data: any) => {
-  
-
-
-    // return (
-    //     <div className="home-container">
-    //         <Nav />
-
-    //         <Box> Home</Box>
-
-    //         <div>
-    //             <label htmlFor="home"> nbr de publi</label>       
-    //         </div>
-    //     </div>sx={{width: {xs:'100%', sm:'50%', md:'40%'}}}
-    // )
-    // className="body"
-    
-
 
     return (
       <React.Fragment >
         <Navbar />
-      {/* // <Box sx={{width:'100%', padding: 0}}>
-
-    // <Box style={styles.paperContainer}  > */}
-    {/* <Box > */}
-        {/* <Navbar /> */}
-        {/* <Typography align ="center" variant="h3" sx={{fontWeight:900}} >
-            <b style={{color:'white'}}>Po</b>
-            <b style={{color:'red'}}>ng</b>
-        </Typography> */}
-        
-
-
-         {/* <img src={GifPong} alt="image"  className="pong"/>
-         <img src={Clavier} alt="image" className="clavier"/> */}
-      {/* </Box> */}
-        
-        {/* // </Box> */}
-
         <Box 
         sx={{
           backgroundImage:`url(${HomesImage})`,
           backgroundRepeat: 'no-repeat',
           backgroundPosition:'center',
           backgroundSize: 'cover',
-          //  backgroundAttachment:'fixed',
           backgroundColor: 'black',
           display:'flex',
           justifyContent:'center',
           height: 750,
           width:'100%',
-          // position:'absolute'
-          // overflow:'auto',
 
           
         }}
@@ -101,11 +41,6 @@ import "./home.scss"
                  Celui qui remporte le match est bien entendu celui qui marque le plus de points.
              </Typography>
             </Box>
-            
-             {/* <img src={GifPong} alt="image"  className="pong" /> */}
-            {/* <img src={Clavier} alt="image" className="clavier"/> */}
-           {/* <img  src={HomesImage} alt="image" width='40%' height='30%'/> */}
-    
           </Box>
 
         </Box>
