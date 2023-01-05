@@ -41,7 +41,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
                 </Typography>
                 <Typography> Do you have an account ?          
                     {/* <Link href='/singup' onClick={()=>handleChange("event",1)}> */}
-                    <NavLink to='/singup'>
+                    <NavLink to='/signup'>
                         
                         Sign up
                     </NavLink>
