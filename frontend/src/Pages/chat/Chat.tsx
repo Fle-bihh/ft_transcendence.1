@@ -1,3 +1,8 @@
+//
+import Navbar from '../../components/nav/Nav';
+import './Chat.scss'
+
+//
 import React, { useState, useEffect } from 'react';
 import { Button, IconButton } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -12,22 +17,24 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import VolumeMuteIcon from '@mui/icons-material/VolumeMute';
 import BlockIcon from '@mui/icons-material/Block';
-import './Chat.scss'
-import Navbar from '../../components/nav/Nav';
+import Chip from '@mui/material/Chip';
 
 const Chat = (props: { messages: Array<{ id: number, sender: string, receiver: string, text: string, groupText: boolean }>, setMessages: Function }) => {
-  const [loading, setLoading] = useState(false);
-  const [mobile, setMobile] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  // const [mobile, setMobile] = useState(false);
 
   const [inputValue, setInputValue] = useState("");
+  const [openConv, setOpenConv] = useState([""]);
+
+  // useEffect() {
+
+  // }
 
   return (
     <div className='chat'>
 
-
       <div className='navSpace'></div>
       <Navbar />
-
 
       <div className="chatPage">
         <div className="side">
@@ -79,11 +86,19 @@ const Chat = (props: { messages: Array<{ id: number, sender: string, receiver: s
           </div>
           <div className='messagesContainer'>
             <div className="messagesDisplay">
-              {props.messages.map((messages) => { return (
-                <div>
-                  {messages.text}
-                </div>
-              ) })}
+              {props.messages.map((messages) => { 
+                if (messages.sender === "Felix")
+                  return (
+                    <div className='rightMessages'>
+                      <Chip label={messages.text} color="primary" />
+                    </div>
+                );
+                else
+                  return (
+                    <div className='leftMessages'>
+                      <Chip label={messages.text} color="secondary" />
+                    </div>
+                )})}
               {/* <!-- messages go here --> */}
               {/* <Messages messages={messages} onClick={() => setMobile(false)} loading={loading} /> */}
             </div>
