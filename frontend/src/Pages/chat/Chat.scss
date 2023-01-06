@@ -135,6 +135,18 @@
             .messagesDisplay {
                 height: 90%;
                 width: 100%;
+                overflow: scroll;
+                
+                .rightMessages {
+                    text-align: right;
+                    justify-content: space-between;
+                    // margin-right: 5%;
+                    // margin-top: 5%;
+                }
+
+                .leftMessages {
+
+                }
             }
 
             .messageInput {
