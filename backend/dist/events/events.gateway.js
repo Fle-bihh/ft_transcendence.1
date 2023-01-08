@@ -15,6 +15,7 @@ const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const socket_io_2 = require("socket.io");
 const common_1 = require("@nestjs/common");
+const messages = Array();
 let EventsGateway = class EventsGateway {
     constructor() {
         this.logger = new common_1.Logger('AppGateway');
@@ -24,11 +25,42 @@ let EventsGateway = class EventsGateway {
     connect() {
         this.logger.log("connected serverside");
     }
-    test1(client, data) {
+    add_message(client, data) {
+        messages.push({
+            id: messages.length,
+            sender: data.sender,
+            receiver: data.receiver,
+            text: data.text
+        });
         console.log(data);
         console.log(client.id);
-        this.logger.log("connected");
-        this.io.to(client.id).emit('newClient');
+        this.logger.log("add_message");
+    }
+    get_conv(client, data) {
+        console.log(data.sender);
+        console.log(client.id);
+        this.logger.log("get_conv");
+        client.emit('get_conv', messages.sort((a, b) => a.id - b.id).filter(message => (message.sender == data.sender && message.receiver == data.receiver) || (message.sender == data.receiver && message.receiver == data.sender)));
+    }
+    get_all_conv_info(client, data) {
+        const retArray = Array();
+        messages.filter((message) => (message.receiver == data.sender || message.sender == data.sender)).map(messageItem => {
+            if (messageItem.sender == data.sender) {
+                if (retArray.find(item => item.receiver == messageItem.receiver) == undefined) {
+                    let tmp = messages.sort((a, b) => a.id - b.id);
+                    retArray.push({ receiver: messageItem.receiver, last_message_text: tmp.reverse().find(message => (message.sender == data.sender && message.receiver == messageItem.receiver) || message.receiver == data.sender && message.sender == messageItem.receiver).text });
+                }
+            }
+            else {
+                if (retArray.find(item => item.receiver == messageItem.sender) == undefined) {
+                    let tmp = messages.sort((a, b) => a.id - b.id);
+                    retArray.push({ receiver: messageItem.sender, last_message_text: tmp.reverse().find(message => (message.sender == data.sender && message.receiver == messageItem.sender) || message.receiver == data.sender && message.sender == messageItem.sender).text });
+                }
+            }
+        });
+        console.log(retArray);
+        client.emit('get_all_conv_info', retArray);
+        this.logger.log("get_all_conv_info");
     }
     handleConnection(client) {
         this.logger.log(`new client connected ${client.id}`);
@@ -48,11 +80,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], EventsGateway.prototype, "connect", null);
 __decorate([
-    (0, websockets_1.SubscribeMessage)('TEST1'),
+    (0, websockets_1.SubscribeMessage)('ADD_MESSAGE'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", void 0)
-], EventsGateway.prototype, "test1", null);
+], EventsGateway.prototype, "add_message", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('GET_CONV'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", void 0)
+], EventsGateway.prototype, "get_conv", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('GET_ALL_CONV_INFO'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", void 0)
+], EventsGateway.prototype, "get_all_conv_info", null);
 EventsGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
