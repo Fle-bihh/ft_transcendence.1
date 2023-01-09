@@ -20,7 +20,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import Chip from '@mui/material/Chip';
 import { useSelector } from 'react-redux';
 
-const Main = (props: { openConvName: string }) => {
+const Main = (props: { openConvName: string, new_conv: boolean }) => {
     const [convMessages, setConvMessages] = useState(Array<{ id: number, sender: string, receiver: string, text: string }>());
     const [inputValue, setInputValue] = useState("");
     const utils = useSelector((state: RootState) => state.utils);
@@ -28,6 +28,7 @@ const Main = (props: { openConvName: string }) => {
 
     useEffect(() => {
         utils.socket.emit('GET_CONV', { sender: user.user?.login, receiver: props.openConvName });
+        console.log('send GET_CONV to back');
 
     }, [props.openConvName])
 
@@ -42,7 +43,7 @@ const Main = (props: { openConvName: string }) => {
     utils.socket.on('get_conv', (openConv: Array<{ id: number, sender: string, receiver: string, text: string }>) => {
         console.log('get_conv recu front', openConv);
         const sorted = openConv.sort((a, b) => a.id - b.id);
-        setConvMessages(sorted)
+        setConvMessages(sorted);
     })
 
     return (
@@ -73,16 +74,17 @@ const Main = (props: { openConvName: string }) => {
             </div>
             <div className='messagesContainer'>
                 <div className="messagesDisplay" id="messagesDisplay">
-                    {convMessages.map(message => {
-                        if (message.sender == user.user?.login)
-                            return (
-                                <div className="rightMessages">{message.text}</div>
-                            )
-                        else
-                            return (
-                                <div className="leftMessages">{message.text}</div>
-                            )
-                    })}
+                    {
+                        convMessages.map((message, index) => {
+                            if (message.sender == user.user?.login)
+                                return (
+                                    <div key={index.toString()} className="rightMessages">{message.text}</div>
+                                )
+                            else
+                                return (
+                                    <div key={index.toString()} className="leftMessages">{message.text}</div>
+                                )
+                        })}
                     {/* <!-- messages go here --> */}
                     {/* <Messages messages={messages} onClick={() => setMobile(false)} loading={loading} /> */}
                 </div>
@@ -91,9 +93,10 @@ const Main = (props: { openConvName: string }) => {
                     <input type='text' id="outlined-basic" placeholder='NeyMessage' value={inputValue} autoComplete={'off'} onChange={(event) => { setInputValue(event.currentTarget.value) }} autoFocus onKeyDown={(event) => {
                         if (event.key == 'Enter') {
                             utils.socket.emit('ADD_MESSAGE', { sender: user.user?.login, receiver: props.openConvName, text: inputValue });
+                            console.log('send ADD_MESSAGE to back');
                             // utils.socket.emit('ADD_MESSAGE', { sender: props.openConvName, receiver: user.user?.login, text: inputValue });
                             utils.socket.emit('GET_CONV', { sender: user.user?.login, receiver: props.openConvName });
-                            console.log('addmessage from front');
+                            console.log('send GET_CONV to back');
                             setInputValue('')
                         }
                     }} />
