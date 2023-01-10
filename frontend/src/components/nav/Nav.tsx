@@ -21,7 +21,7 @@ const Navbar = (props: any) => {
     {Name: <Notifications/>, Link:'#'},
     {Name: <Message/>, Link:'/Chat'},
     {Name: <AccountCircle/>, Link:'/Profile'},
-    {Name: <LogoutIcon/>, Link:'Signin'}
+    {Name: <LogoutIcon/>, Link:'/Signin'}
     ];
 
     const HomeBox = styled(Box)({
