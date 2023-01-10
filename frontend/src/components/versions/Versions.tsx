@@ -133,7 +133,7 @@ export default function ButtonBases() {
 
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
-          <NavLink to='/jeux' >
+          <NavLink to='/pong' >
             <Typography
               component="span"
               variant="subtitle1"
