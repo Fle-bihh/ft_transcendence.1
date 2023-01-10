@@ -15,8 +15,6 @@ import { useState, useEffect } from "react";
 
 function App() {
 
-  const [messages, setMessages] = useState(Array<{id: number, sender: string, receiver: string, text: string, groupText: boolean}>())
-
 return (
   <div className='app'>
       <PersistGate loading={null} persistor={persistor}>
@@ -27,7 +25,7 @@ return (
           <Route path="/versions" element={<Versions />} />
           <Route path="/pong" element={<Pong />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<Chat messages={messages} setMessages={setMessages}/>} />
+          <Route path="/chat" element={<Chat />} />
 
         </Routes>
       </PersistGate>
