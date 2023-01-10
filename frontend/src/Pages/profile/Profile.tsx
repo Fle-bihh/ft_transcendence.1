@@ -32,11 +32,13 @@ const paperStyleState={padding:20, height:500, width:700, backgroundColor: 'blue
         <Grid xs={6}>
             <Paper style={paperStyle} >
             1
+            test 123
             </Paper>
         </Grid>
         <Grid xs={6}>
             <Paper style={paperStyleState}>
             2
+            test 123
             </Paper>
         </Grid>
     </Grid>
