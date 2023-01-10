@@ -1,5 +1,5 @@
 //
-import "../../pages/chat/Chat.scss";
+import "./Side.scss";
 import { RootState } from "../../state";
 
 //
@@ -27,36 +27,16 @@ const Side = (props: {
   allConv: Array<{
     receiver: string;
     last_message_text: string;
+    last_message_time: Date;
     new_conv: boolean;
   }>;
   setAllConv: Function;
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const [usersIsUpdate, setUsersIsUpdate] = useState(false);
-  const [users, setUsers] = useState(Array<{ login: string }>());
   const utils = useSelector((state: RootState) => state.utils);
   const user = useSelector(
     (state: RootState) => state.persistantReducer.userReducer
   );
-
-  useEffect(() => {
-    if (!usersIsUpdate) {
-      utils.socket.emit("GET_ALL_USERS");
-      console.log("send GET_ALL_USERS to back");
-      setUsersIsUpdate(true);
-    }
-  }, [inputValue]);
-
-  useEffect(() => {
-    // alert('oui')
-    console.log(props.allConv);
-  }, [props.allConv]);
-
-  utils.socket.removeListener("get_all_users");
-  utils.socket.on("get_all_users", (allUsers: Array<{ login: string }>) => {
-    console.log("get_all_users recu front", allUsers);
-    setUsers(allUsers);
-  });
 
   return (
     <div className="side">
@@ -86,6 +66,7 @@ const Side = (props: {
             tmpArray.unshift({
               receiver: "New Message",
               last_message_text: "",
+              last_message_time: new Date(),
               new_conv: true,
             });
 
