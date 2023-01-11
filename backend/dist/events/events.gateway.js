@@ -15,7 +15,10 @@ const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const socket_io_2 = require("socket.io");
 const common_1 = require("@nestjs/common");
-const messages = Array();
+const db_messages = Array();
+const db_users = (Array);
+const db_rooms = (Array);
+const users = Array();
 let EventsGateway = class EventsGateway {
     constructor() {
         this.logger = new common_1.Logger('AppGateway');
@@ -23,44 +26,118 @@ let EventsGateway = class EventsGateway {
         this.io = new socket_io_2.Server(this.httpServer);
     }
     connect() {
-        this.logger.log("connected serverside");
+        this.logger.log('connected serverside');
     }
     add_message(client, data) {
-        messages.push({
-            id: messages.length,
+        const actualTime = new Date();
+        db_messages.push({
+            index: db_messages.length,
             sender: data.sender,
             receiver: data.receiver,
-            text: data.text
+            content: data.content,
+            time: new Date(),
         });
-        console.log(data);
-        console.log(client.id);
-        this.logger.log("add_message");
+        this.logger.log('ADD_MESSAGE recu back');
+        this.get_all_conv_info(client, { sender: data.sender });
+        users
+            .find((user) => user.login === data.receiver)
+            .socket.emit('new_message');
+        this.logger.log('send new_message to front', data.receiver);
     }
     get_conv(client, data) {
-        console.log(data.sender);
-        console.log(client.id);
-        this.logger.log("get_conv");
-        client.emit('get_conv', messages.sort((a, b) => a.id - b.id).filter(message => (message.sender == data.sender && message.receiver == data.receiver) || (message.sender == data.receiver && message.receiver == data.sender)));
+        this.logger.log('GET_CONV recu back', data);
+        client.emit('get_conv', db_messages
+            .sort((a, b) => a.index - b.index)
+            .filter((message) => (message.sender == data.sender &&
+            message.receiver == data.receiver) ||
+            (message.sender == data.receiver &&
+                message.receiver == data.sender)));
+        this.logger.log('send get_conv to front', data.sender);
     }
     get_all_conv_info(client, data) {
+        this.logger.log('GET_ALL_CONV_INFO recu back', data);
         const retArray = Array();
-        messages.filter((message) => (message.receiver == data.sender || message.sender == data.sender)).map(messageItem => {
+        db_messages
+            .filter((message) => message.receiver == data.sender || message.sender == data.sender)
+            .map((messageItem) => {
             if (messageItem.sender == data.sender) {
-                if (retArray.find(item => item.receiver == messageItem.receiver) == undefined) {
-                    let tmp = messages.sort((a, b) => a.id - b.id);
-                    retArray.push({ receiver: messageItem.receiver, last_message_text: tmp.reverse().find(message => (message.sender == data.sender && message.receiver == messageItem.receiver) || message.receiver == data.sender && message.sender == messageItem.receiver).text });
+                if (retArray.find((item) => item.receiver == messageItem.receiver) ==
+                    undefined) {
+                    let tmp = db_messages.sort((a, b) => a.index - b.index);
+                    retArray.push({
+                        receiver: messageItem.receiver,
+                        last_message_text: tmp
+                            .reverse()
+                            .find((message) => (message.sender == data.sender &&
+                            message.receiver == messageItem.receiver) ||
+                            (message.receiver == data.sender &&
+                                message.sender == messageItem.receiver)).content,
+                        new_conv: false,
+                        time: tmp
+                            .reverse()
+                            .find((message) => (message.sender == data.sender &&
+                            message.receiver == messageItem.receiver) ||
+                            (message.receiver == data.sender &&
+                                message.sender == messageItem.receiver)).time,
+                    });
                 }
             }
             else {
-                if (retArray.find(item => item.receiver == messageItem.sender) == undefined) {
-                    let tmp = messages.sort((a, b) => a.id - b.id);
-                    retArray.push({ receiver: messageItem.sender, last_message_text: tmp.reverse().find(message => (message.sender == data.sender && message.receiver == messageItem.sender) || message.receiver == data.sender && message.sender == messageItem.sender).text });
+                if (retArray.find((item) => item.receiver == messageItem.sender) ==
+                    undefined) {
+                    let tmp = [...db_messages.sort((a, b) => a.index - b.index)];
+                    console.log('tmp time', tmp[0].time);
+                    retArray.push({
+                        receiver: messageItem.sender,
+                        last_message_text: tmp
+                            .reverse()
+                            .find((message) => (message.sender == data.sender &&
+                            message.receiver == messageItem.sender) ||
+                            (message.receiver == data.sender &&
+                                message.sender == messageItem.sender)).content,
+                        new_conv: false,
+                        time: tmp
+                            .reverse()
+                            .find((message) => (message.sender == data.sender &&
+                            message.receiver == messageItem.sender) ||
+                            (message.receiver == data.sender &&
+                                message.sender == messageItem.sender)).time,
+                    });
                 }
             }
         });
-        console.log(retArray);
         client.emit('get_all_conv_info', retArray);
-        this.logger.log("get_all_conv_info");
+        this.logger.log('send get_all_conv_info to front', retArray);
+    }
+    add_user(client, data) {
+        console.log('ADD_USER recu back', data);
+        users.push({
+            index: users.length,
+            login: data.login,
+            socket: client,
+        });
+        users.map((user) => {
+            this.get_all_users(user.socket);
+        });
+    }
+    update_user_socket(client, data) {
+        if (users.findIndex((user) => user.login === data.login) >= 0) {
+            users[users.findIndex((user) => user.login === data.login)].socket =
+                client;
+        }
+        this.logger.log('UPDATE_USER_SOCKET recu back');
+    }
+    get_all_users(client) {
+        this.logger.log('GET_ALL_USERS received back');
+        const retArray = Array();
+        users.map((user) => {
+            retArray.push({
+                id: user.index,
+                login: user.login,
+            });
+        });
+        client.emit('get_all_users', retArray);
+        this.logger.log('send get_all_users to front', retArray);
     }
     handleConnection(client) {
         this.logger.log(`new client connected ${client.id}`);
@@ -97,6 +174,24 @@ __decorate([
     __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
     __metadata("design:returntype", void 0)
 ], EventsGateway.prototype, "get_all_conv_info", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('ADD_USER'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", void 0)
+], EventsGateway.prototype, "add_user", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('UPDATE_USER_SOCKET'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket, Object]),
+    __metadata("design:returntype", void 0)
+], EventsGateway.prototype, "update_user_socket", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('GET_ALL_USERS'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [socket_io_1.Socket]),
+    __metadata("design:returntype", void 0)
+], EventsGateway.prototype, "get_all_users", null);
 EventsGateway = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {

@@ -1,13 +1,14 @@
 import { Avatar, Button, Checkbox, FormControlLabel, Grid, Paper, TextField, Typography } from '@mui/material';
-import React from 'react'
+import React, { Component, useEffect } from 'react'
+
 import LockSharpIcon from '@mui/icons-material/LockSharp';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
 import "./signin.scss"
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreators } from '../../state';
+import { actionCreators, RootState } from '../../state';
 
 // import Checkbox from '@mui/material/Checkbox';
 // const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -25,7 +26,6 @@ import { actionCreators } from '../../state';
 
     const dispatch = useDispatch();
     const { setUser } = bindActionCreators(actionCreators, dispatch);
-    console.log('gfgfg');
 
     return (
         <Grid>
@@ -45,7 +45,8 @@ import { actionCreators } from '../../state';
                 <FormControlLabel control={<Checkbox  />} label="Remember me" />
                 <Button type='submit' color='primary' variant='contained'  style={btnStyle} fullWidth onClick={() => {
                     setUser({login: inputUsernameValue});
-                    <NavLink to='/'></NavLink>
+                    utils.socket.emit('ADD_USER', {login: inputUsernameValue});
+                    // <NavLink to='/'></NavLink>
                     }}> Sign in</Button>
                 <Typography style={askStyle}>
                     <Link href='#'>
