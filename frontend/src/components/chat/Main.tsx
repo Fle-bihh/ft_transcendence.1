@@ -115,7 +115,10 @@ const Main = (props: {
             autoFocus
             onKeyDown={(event) => {
               if (event.key == "Enter") {
+                utils.socket.emit("GET_ALL_USERS", {});
+                console.log("send GET_ALL_USERS to back");
                 if (allUsers.find((user) => user.login === topInputValue)) {
+                  console.log('in condition')
                   const tmpArray = [...props.allConv];
                   tmpArray.shift();
                   tmpArray.unshift({
