@@ -1,0 +1,144 @@
+.main {
+  height: 100%;
+  width: 78%;
+
+  background-color: rgb(0, 0, 0, 0.3);
+
+  color: white;
+
+  .mainTitleContainer {
+    width: 100%;
+
+    min-height: 70px;
+    // height: 8%;
+
+    // background-color: red;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+    // color: grey;
+
+    background-color: rgb(54, 51, 57);
+
+    .mainTitle {
+      // display: flex;
+      width: 35px;
+      min-width: 35px;
+      // font-size: larger;
+      align-items: center;
+      margin-right: 2%;
+      margin-left: 2%;
+      color: grey;
+    }
+
+    .openConvName {
+      margin-left: 1%;
+      background-color: rgb(54, 51, 57);
+    }
+
+    .openConvNameInput {
+      width: 100%;
+      color: white;
+      padding-left: 2%;
+      font-size: large;
+      background-color: transparent;
+      border: 0;
+      outline: none;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-right: 2%;
+      margin-left: auto;
+    }
+  }
+
+  .messagesContainer {
+    height: calc(100% - 70px);
+    // background-color: rgb(0, 0, 0);
+
+    .messagesDisplay {
+      height: calc(94% - 2px);
+      width: 100%;
+      overflow: scroll;
+      display: flex;
+      flex-direction: column;
+      scroll-behavior: smooth;
+
+      .rightMessages {
+        margin-left: auto;
+        margin-right: 2%;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding: 5px;
+        // padding-block: 3px;
+
+        width: fit-content;
+        min-width: 50px;
+        max-width: 60%;
+
+        font-size: small;
+        font-weight: bold;
+
+        text-align: left;
+
+        // overflow: auto;
+
+        height: max-content;
+        background-color: rgb(0, 145, 245);
+        border-radius: 15px;
+        border-bottom-right-radius: 0;
+
+        word-break: break-all;
+      }
+
+      .leftMessages {
+        margin-left: 2%;
+        margin-top: 1px;
+        margin-bottom: 1px;
+        padding: 5px;
+
+        width: fit-content;
+        min-width: 50px;
+        max-width: 60%;
+
+        text-align: left;
+
+        // overflow: auto;
+
+        height: max-content;
+        background-color: rgb(0, 0, 0, 0.8);
+        border-radius: 10px;
+        border-bottom-left-radius: 0;
+
+        word-break: break-all;
+      }
+    }
+
+    .messageInput {
+      display: flex;
+      backdrop-filter: blur(30px);
+      height: 4%;
+      width: 95%;
+      border-radius: 25px;
+      border: 1px solid grey;
+      margin-inline: auto;
+      font-size: xx-small;
+
+      input {
+        font-weight: bold;
+        width: 100%;
+        color: white;
+        padding-left: 2%;
+        font-size: large;
+        background-color: transparent;
+        border: 0;
+        outline: none;
+      }
+    }
+  }
+}
