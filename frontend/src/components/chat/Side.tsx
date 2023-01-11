@@ -31,7 +31,7 @@ const Side = (props: {
       <div className="newConvContainer">
         {/* <div className='sideTitle'>New conversation</div> */}
         <input
-          className="newConvInput"
+          className="searchBar"
           type="text"
           id="outlined-basic"
           placeholder="Research"

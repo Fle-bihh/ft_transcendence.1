@@ -23,8 +23,9 @@
     background-color: rgb(54, 51, 57);
 
     .mainTitle {
-      display: flex;
-      width: 30px;
+      // display: flex;
+      width: 35px;
+      min-width: 35px;
       // font-size: larger;
       align-items: center;
       margin-right: 2%;
@@ -35,6 +36,17 @@
     .openConvName {
       margin-left: 1%;
       background-color: rgb(54, 51, 57);
+    }
+
+    .openConvNameInput {
+      width: 100%;
+      color: white;
+      padding-left: 2%;
+      font-size: large;
+      background-color: transparent;
+      border: 0;
+      outline: none;
+      font-weight: bold;
     }
 
     .buttons {

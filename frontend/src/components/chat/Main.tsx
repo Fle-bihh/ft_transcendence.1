@@ -4,12 +4,11 @@ import { RootState } from "../../state";
 
 //
 import React, { useState, useEffect } from "react";
-import { Button, dividerClasses, getListItemAvatarUtilityClass, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import BlockIcon from "@mui/icons-material/Block";
 import { useSelector } from "react-redux";
-import { IndexInfo } from "typescript";
 
 const Main = (props: {
   openConvName: string;
@@ -21,6 +20,8 @@ const Main = (props: {
     new_conv: boolean;
   }>;
   setAllConv: Function;
+  allUsers: Array<{ id: number, login: string }>;
+  setAllUsers: Function;
 }) => {
   const [convMessages, setConvMessages] = useState(
     Array<{
@@ -33,7 +34,6 @@ const Main = (props: {
   );
   const [inputValue, setInputValue] = useState("");
   const [topInputValue, setTopInputValue] = useState("");
-  const [allUsers, setAllUsers] = useState(Array<{ id: number, login: string }>());
   const utils = useSelector((state: RootState) => state.utils);
   const user = useSelector(
     (state: RootState) => state.persistantReducer.userReducer
@@ -72,20 +72,6 @@ const Main = (props: {
     }
   );
 
-  utils.socket.removeListener("get_all_users");
-  utils.socket.on(
-    "get_all_users",
-    (
-      all_users: Array<{
-        id: number;
-        login: string;
-      }>
-    ) => {
-      setAllUsers([...all_users]);
-      console.log("get_all_users recu front", allUsers);
-    }
-  );
-
   return (
     <div className="main">
       <div className="mainTitleContainer">
@@ -107,9 +93,9 @@ const Main = (props: {
             autoFocus
             onKeyDown={(event) => {
               if (event.key == "Enter") {
-                utils.socket.emit("GET_ALL_USERS", {});
-                console.log("send GET_ALL_USERS to back");
-                if (allUsers.find((user) => user.login === topInputValue)) {
+                // utils.socket.emit("GET_ALL_USERS", {});
+                // console.log("send GET_ALL_USERS to back");
+                if (props.allUsers.find((user) => user.login === topInputValue)) {
                   console.log("in condition");
                   const tmpArray = [...props.allConv];
                   tmpArray.shift();

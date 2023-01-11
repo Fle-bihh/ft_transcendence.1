@@ -5,7 +5,7 @@ import Side from "../../components/chat/Side";
 import "./Chat.scss";
 
 //
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state";
 
@@ -24,6 +24,7 @@ const Chat = () => {
   );
   const [openConvName, setOpenConvName] = useState("");
   const [launchChatBool, setLaunchChatBool] = useState(true);
+  const [allUsers, setAllUsers] = useState(Array<{ id: number, login: string }>());
 
   useEffect(() => {
     if (!allConv.length && launchChatBool) {
@@ -31,6 +32,8 @@ const Chat = () => {
       console.log("send GET_ALL_CONV_INFO to back");
       utils.socket.emit("UPDATE_USER_SOCKET", { login: user.user?.login });
       console.log("send UPDATE_USER_SOCKET to back");
+      utils.socket.emit("GET_ALL_USERS");
+      console.log("send GET_ALL_USERS to back");
     }
     setLaunchChatBool(false);
   });
@@ -46,7 +49,6 @@ const Chat = () => {
         new_conv: boolean;
       }>
     ) => {
-      console.log("data", data);
       setAllConv(data);
       console.log("get_all_conv_info recu front");
     }
@@ -59,6 +61,20 @@ const Chat = () => {
       console.log("new_message recu front");
       utils.socket.emit("GET_ALL_CONV_INFO", { sender: user.user?.login });
       console.log("send GET_ALL_CONV_INFO to back");
+    }
+  );
+
+  utils.socket.removeListener("get_all_users");
+  utils.socket.on(
+    "get_all_users",
+    (
+      all_users: Array<{
+        id: number;
+        login: string;
+      }>
+    ) => {
+      setAllUsers([...all_users]);
+      console.log("get_all_users recu front", allUsers);
     }
   );
 
@@ -80,6 +96,8 @@ const Chat = () => {
             setOpenConvName={setOpenConvName}
             allConv={allConv}
             setAllConv={setAllConv}
+            allUsers={allUsers}
+            setAllUsers={setAllUsers}
           />
         ) : (
           <></>

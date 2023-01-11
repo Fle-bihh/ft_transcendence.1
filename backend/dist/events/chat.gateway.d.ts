@@ -9,7 +9,7 @@ export declare class EventsGateway {
     add_message(client: Socket, data: {
         sender: string;
         receiver: string;
-        content: string;
+        text: string;
     }): void;
     get_conv(client: Socket, data: {
         sender: string;

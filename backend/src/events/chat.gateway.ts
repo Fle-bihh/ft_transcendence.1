@@ -10,37 +10,13 @@ import { Socket } from 'socket.io';
 import { Server } from 'socket.io';
 import { Logger } from '@nestjs/common';
 
-const db_messages = Array<{
+const messages = Array<{
   index: number;
   sender: string;
   receiver: string;
-  content: string;
+  text: string;
   time: Date;
 }>();
-const db_users = Array<{
-  index: number;
-  login: string;
-  password: string;
-  username: string;
-  friends: Array<{ index: number; login: string; friendshipDate: Date }>;
-  blocked: Array<{
-    index: number;
-    login: string;
-    blockDate: Date;
-    blockReason: string;
-  }>;
-}>;
-const db_rooms = Array<{
-  index: number;
-  name: string;
-  password: string;
-  description: string;
-  owner: string;
-  admins: Array<{ index: number, login: string }>;
-  participants: Array<{ index: number; login: string }>;
-  banned: Array<{ index: number; login: string; banDate: Date }>;
-  muted: Array<{ index: number; login: string; muteDate: Date }>;
-}>;
 const users = Array<{ index: number; login: string; socket: Socket }>();
 
 @WebSocketGateway({
@@ -66,15 +42,15 @@ export class EventsGateway {
     data: {
       sender: string;
       receiver: string;
-      content: string;
+      text: string;
     },
   ) {
     const actualTime: Date = new Date();
-    db_messages.push({
-      index: db_messages.length,
+    messages.push({
+      index: messages.length,
       sender: data.sender,
       receiver: data.receiver,
-      content: data.content,
+      text: data.text,
       time: new Date(),
     });
     this.logger.log('ADD_MESSAGE recu back');
@@ -98,7 +74,7 @@ export class EventsGateway {
 
     client.emit(
       'get_conv',
-      db_messages
+      messages
         .sort((a, b) => a.index - b.index)
         .filter(
           (message) =>
@@ -126,11 +102,11 @@ export class EventsGateway {
       time: Date;
     }>();
 
-    db_messages
+    messages
       .filter(
         (message) =>
           message.receiver == data.sender || message.sender == data.sender,
-      ) // db_messages avec sender
+      ) // messages avec sender
       .map((messageItem) => {
         if (messageItem.sender == data.sender) {
           // si je suis sender
@@ -139,7 +115,7 @@ export class EventsGateway {
             undefined
           ) {
             // si retArray n'a pas encore la conv avec ce receiver
-            let tmp = db_messages.sort((a, b) => a.index - b.index);
+            let tmp = messages.sort((a, b) => a.index - b.index);
             retArray.push({
               receiver: messageItem.receiver,
               last_message_text: tmp
@@ -150,7 +126,7 @@ export class EventsGateway {
                       message.receiver == messageItem.receiver) ||
                     (message.receiver == data.sender &&
                       message.sender == messageItem.receiver),
-                ).content,
+                ).text,
               new_conv: false,
               time: tmp
                 .reverse()
@@ -168,7 +144,7 @@ export class EventsGateway {
             retArray.find((item) => item.receiver == messageItem.sender) ==
             undefined
           ) {
-            let tmp = [...db_messages.sort((a, b) => a.index - b.index)];
+            let tmp = [...messages.sort((a, b) => a.index - b.index)];
             console.log('tmp time', tmp[0].time);
             retArray.push({
               receiver: messageItem.sender,
@@ -180,7 +156,7 @@ export class EventsGateway {
                       message.receiver == messageItem.sender) ||
                     (message.receiver == data.sender &&
                       message.sender == messageItem.sender),
-                ).content,
+                ).text,
               new_conv: false,
               time: tmp
                 .reverse()

@@ -15,9 +15,7 @@ const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const socket_io_2 = require("socket.io");
 const common_1 = require("@nestjs/common");
-const db_messages = Array();
-const db_users = (Array);
-const db_rooms = (Array);
+const messages = Array();
 const users = Array();
 let EventsGateway = class EventsGateway {
     constructor() {
@@ -30,11 +28,11 @@ let EventsGateway = class EventsGateway {
     }
     add_message(client, data) {
         const actualTime = new Date();
-        db_messages.push({
-            index: db_messages.length,
+        messages.push({
+            index: messages.length,
             sender: data.sender,
             receiver: data.receiver,
-            content: data.content,
+            text: data.text,
             time: new Date(),
         });
         this.logger.log('ADD_MESSAGE recu back');
@@ -46,7 +44,7 @@ let EventsGateway = class EventsGateway {
     }
     get_conv(client, data) {
         this.logger.log('GET_CONV recu back', data);
-        client.emit('get_conv', db_messages
+        client.emit('get_conv', messages
             .sort((a, b) => a.index - b.index)
             .filter((message) => (message.sender == data.sender &&
             message.receiver == data.receiver) ||
@@ -57,13 +55,13 @@ let EventsGateway = class EventsGateway {
     get_all_conv_info(client, data) {
         this.logger.log('GET_ALL_CONV_INFO recu back', data);
         const retArray = Array();
-        db_messages
+        messages
             .filter((message) => message.receiver == data.sender || message.sender == data.sender)
             .map((messageItem) => {
             if (messageItem.sender == data.sender) {
                 if (retArray.find((item) => item.receiver == messageItem.receiver) ==
                     undefined) {
-                    let tmp = db_messages.sort((a, b) => a.index - b.index);
+                    let tmp = messages.sort((a, b) => a.index - b.index);
                     retArray.push({
                         receiver: messageItem.receiver,
                         last_message_text: tmp
@@ -71,7 +69,7 @@ let EventsGateway = class EventsGateway {
                             .find((message) => (message.sender == data.sender &&
                             message.receiver == messageItem.receiver) ||
                             (message.receiver == data.sender &&
-                                message.sender == messageItem.receiver)).content,
+                                message.sender == messageItem.receiver)).text,
                         new_conv: false,
                         time: tmp
                             .reverse()
@@ -85,7 +83,7 @@ let EventsGateway = class EventsGateway {
             else {
                 if (retArray.find((item) => item.receiver == messageItem.sender) ==
                     undefined) {
-                    let tmp = [...db_messages.sort((a, b) => a.index - b.index)];
+                    let tmp = [...messages.sort((a, b) => a.index - b.index)];
                     console.log('tmp time', tmp[0].time);
                     retArray.push({
                         receiver: messageItem.sender,
@@ -94,7 +92,7 @@ let EventsGateway = class EventsGateway {
                             .find((message) => (message.sender == data.sender &&
                             message.receiver == messageItem.sender) ||
                             (message.receiver == data.sender &&
-                                message.sender == messageItem.sender)).content,
+                                message.sender == messageItem.sender)).text,
                         new_conv: false,
                         time: tmp
                             .reverse()
@@ -200,4 +198,4 @@ EventsGateway = __decorate([
     })
 ], EventsGateway);
 exports.EventsGateway = EventsGateway;
-//# sourceMappingURL=events.gateway.js.map
+//# sourceMappingURL=chat.gateway.js.map
