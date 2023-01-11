@@ -29,7 +29,7 @@ let EventsGateway = class EventsGateway {
     add_message(client, data) {
         const actualTime = new Date();
         messages.push({
-            id: messages.length,
+            index: messages.length,
             sender: data.sender,
             receiver: data.receiver,
             text: data.text,
@@ -45,7 +45,7 @@ let EventsGateway = class EventsGateway {
     get_conv(client, data) {
         this.logger.log('GET_CONV recu back', data);
         client.emit('get_conv', messages
-            .sort((a, b) => a.id - b.id)
+            .sort((a, b) => a.index - b.index)
             .filter((message) => (message.sender == data.sender &&
             message.receiver == data.receiver) ||
             (message.sender == data.receiver &&
@@ -61,7 +61,7 @@ let EventsGateway = class EventsGateway {
             if (messageItem.sender == data.sender) {
                 if (retArray.find((item) => item.receiver == messageItem.receiver) ==
                     undefined) {
-                    let tmp = messages.sort((a, b) => a.id - b.id);
+                    let tmp = messages.sort((a, b) => a.index - b.index);
                     retArray.push({
                         receiver: messageItem.receiver,
                         last_message_text: tmp
@@ -83,7 +83,7 @@ let EventsGateway = class EventsGateway {
             else {
                 if (retArray.find((item) => item.receiver == messageItem.sender) ==
                     undefined) {
-                    let tmp = [...messages.sort((a, b) => a.id - b.id)];
+                    let tmp = [...messages.sort((a, b) => a.index - b.index)];
                     console.log('tmp time', tmp[0].time);
                     retArray.push({
                         receiver: messageItem.sender,
@@ -105,11 +105,12 @@ let EventsGateway = class EventsGateway {
             }
         });
         client.emit('get_all_conv_info', retArray);
-        this.logger.log('send get_all_conv_info to front', data.sender);
+        this.logger.log('send get_all_conv_info to front', retArray);
     }
     add_user(client, data) {
         console.log('ADD_USER recu back', data);
         users.push({
+            index: users.length,
             login: data.login,
             socket: client,
         });
@@ -125,10 +126,13 @@ let EventsGateway = class EventsGateway {
         this.logger.log('UPDATE_USER_SOCKET recu back');
     }
     get_all_users(client) {
-        this.logger.log('GET_ALL_USERS recu back');
+        this.logger.log('GET_ALL_USERS received back');
         const retArray = Array();
-        users.map((user, index) => {
-            retArray.push({ login: user.login });
+        users.map((user) => {
+            retArray.push({
+                id: user.index,
+                login: user.login,
+            });
         });
         client.emit('get_all_users', retArray);
         this.logger.log('send get_all_users to front', retArray);

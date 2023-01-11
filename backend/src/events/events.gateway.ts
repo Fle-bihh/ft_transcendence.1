@@ -9,17 +9,15 @@ import { createServer } from 'http';
 import { Socket } from 'socket.io';
 import { Server } from 'socket.io';
 import { Logger } from '@nestjs/common';
-import { Deflate } from 'zlib';
-// ManyToMany;
 
 const messages = Array<{
-  id: number;
+  index: number;
   sender: string;
   receiver: string;
   text: string;
   time: Date;
 }>();
-const users = Array<{ login: string; socket: Socket }>();
+const users = Array<{ index: number; login: string; socket: Socket }>();
 
 @WebSocketGateway({
   cors: {
@@ -49,7 +47,7 @@ export class EventsGateway {
   ) {
     const actualTime: Date = new Date();
     messages.push({
-      id: messages.length,
+      index: messages.length,
       sender: data.sender,
       receiver: data.receiver,
       text: data.text,
@@ -77,7 +75,7 @@ export class EventsGateway {
     client.emit(
       'get_conv',
       messages
-        .sort((a, b) => a.id - b.id)
+        .sort((a, b) => a.index - b.index)
         .filter(
           (message) =>
             (message.sender == data.sender &&
@@ -117,7 +115,7 @@ export class EventsGateway {
             undefined
           ) {
             // si retArray n'a pas encore la conv avec ce receiver
-            let tmp = messages.sort((a, b) => a.id - b.id);
+            let tmp = messages.sort((a, b) => a.index - b.index);
             retArray.push({
               receiver: messageItem.receiver,
               last_message_text: tmp
@@ -146,7 +144,7 @@ export class EventsGateway {
             retArray.find((item) => item.receiver == messageItem.sender) ==
             undefined
           ) {
-            let tmp = [...messages.sort((a, b) => a.id - b.id)];
+            let tmp = [...messages.sort((a, b) => a.index - b.index)];
             console.log('tmp time', tmp[0].time);
             retArray.push({
               receiver: messageItem.sender,
@@ -174,7 +172,7 @@ export class EventsGateway {
         }
       });
     client.emit('get_all_conv_info', retArray);
-    this.logger.log('send get_all_conv_info to front', data.sender);
+    this.logger.log('send get_all_conv_info to front', retArray);
   }
 
   @SubscribeMessage('ADD_USER')
@@ -186,6 +184,7 @@ export class EventsGateway {
   ) {
     console.log('ADD_USER recu back', data);
     users.push({
+      index: users.length,
       login: data.login,
       socket: client,
     });
@@ -201,26 +200,22 @@ export class EventsGateway {
       login: string;
     },
   ) {
-    // console.log('users = ', users);
-    // console.log('usersdata = ', data.login);
-    // console.log('find = ', users.find(user => user.login === data.login) );
     if (users.findIndex((user) => user.login === data.login) >= 0) {
       users[users.findIndex((user) => user.login === data.login)].socket =
         client;
     }
-
-    // console.log(client.id)
     this.logger.log('UPDATE_USER_SOCKET recu back');
-    // client.emit('get_conv', messages.sort((a, b) => a.id - b.id).filter(message => (message.sender == data.sender && message.receiver == data.receiver) || (message.sender == data.receiver && message.receiver == data.sender)));
-    // client.emit('get_conv');
   }
 
   @SubscribeMessage('GET_ALL_USERS')
   get_all_users(client: Socket) {
-    this.logger.log('GET_ALL_USERS recu back');
-    const retArray = Array<{ login: string }>();
-    users.map((user, index) => {
-      retArray.push({ login: user.login });
+    this.logger.log('GET_ALL_USERS received back');
+    const retArray = Array<{ id: number; login: string }>();
+    users.map((user) => {
+      retArray.push({
+        id: user.index,
+        login: user.login,
+      });
     });
     client.emit('get_all_users', retArray);
     this.logger.log('send get_all_users to front', retArray);
