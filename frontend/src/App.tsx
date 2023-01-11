@@ -7,11 +7,9 @@ import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
 
 
-import { PlayCircleFilledSharp } from "@mui/icons-material";
-import {BrowserRouter, Routes, Route, Router} from "react-router-dom"
+import {Routes, Route} from "react-router-dom"
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from './state/store'
-import { useState, useEffect } from "react";
 
 function App() {
 

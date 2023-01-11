@@ -1,7 +1,7 @@
 import Version1 from "../../styles/asset/gif_pong.gif";
 import Version2 from "../../styles/asset/Version2.gif";
 import Version3 from "../../styles/asset/Version3.gif";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 import * as React from 'react';
