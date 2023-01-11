@@ -5,8 +5,8 @@ import Game from './game';
 
 const Pong = () => {
     return (
-        
         <div>
+            <Navbar />
             <Game/>
         </div>
     );
