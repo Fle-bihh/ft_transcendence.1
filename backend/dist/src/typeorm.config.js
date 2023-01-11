@@ -1,5 +1,5 @@
-// typeorm.config.ts
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const config = {
     type: "postgres",
     host: "localhost",
@@ -10,8 +10,8 @@ const config = {
     entities: ["src/entity/**/*.ts"],
     migrations: ["src/migration/**/*.ts"],
     cli: {
-      migrationsDir: "src/migration"
+        migrationsDir: "src/migration"
     }
-  };
-  
-  export default config;
+};
+exports.default = config;
+//# sourceMappingURL=typeorm.config.js.map
