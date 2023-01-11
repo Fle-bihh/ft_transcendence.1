@@ -4,6 +4,10 @@ import LockSharpIcon from '@mui/icons-material/LockSharp';
 import Link from '@mui/material/Link';
 import { NavLink } from 'react-router-dom';
 import "./signin.scss"
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators } from '../../state';
 
 // import Checkbox from '@mui/material/Checkbox';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -17,6 +21,11 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const formStyle={lineHeight: '4'}
     const askStyle={lineHeight: '2'}
 
+    const [inputUsernameValue, setInputUsernameValue] = useState("")
+
+    const dispatch = useDispatch();
+    const { setUser } = bindActionCreators(actionCreators, dispatch);
+
     return (
         <Grid>
             <Paper   style={paperStyle}>
@@ -24,16 +33,19 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
                     <Avatar style={avatarStyle}>
                         <LockSharpIcon />
                     </Avatar>
-                    <h2 >
+                    <h2>
                         Sign In
                     </h2>
                 </Grid>
                 <form style={formStyle}>
-                <TextField  label="Username" variant="standard" placeholder='Enter username' fullWidth required/>
+                <TextField  label="Username" variant="standard" placeholder='Enter username' fullWidth required value={inputUsernameValue} onChange={value => setInputUsernameValue(value.currentTarget.value)}/>
                 <TextField  label="Password" variant="standard" placeholder='Enter password' type='password' fullWidth required/>
              
                 <FormControlLabel control={<Checkbox  />} label="Remember me" />
-                <Button type='submit' color='primary' variant='contained'  style={btnStyle} fullWidth> Sign in</Button>
+                <Button type='submit' color='primary' variant='contained'  style={btnStyle} fullWidth onClick={() => {
+                    setUser({login: inputUsernameValue});
+                    <NavLink to='/'></NavLink>
+                    }}> Sign in</Button>
                 <Typography style={askStyle}>
                     <Link href='#'>
                         Forgot password ? 
